@@ -1,0 +1,16 @@
+
+services:
+  postgres:
+    image: postgres:alpine
+    ports:
+     - 5432:5432
+    volumes:
+     - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 1234567
+      POSTGRES_DB: db
+      PGDATA: /var/lib/postgresql/data/pgdata
+
+volumes:
+  pgdata:
