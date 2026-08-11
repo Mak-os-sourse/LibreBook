@@ -2,23 +2,43 @@ import jwt
 import time
 import jwt
 from typing import Any
-from functools import wraps
 from django.contrib.auth.models import AnonymousUser
-from django.http import HttpRequest
+from rest_framework.request import Request
 from rest_framework import status
 from rest_framework.authentication import BaseAuthentication
 from rest_framework.exceptions import AuthenticationFailed
-from django.contrib.auth.backends import BaseBackend
 from drf_spectacular.authentication import TokenScheme
+from drf_spectacular.plumbing import build_bearer_security_scheme_object
 
 from settings import settings
 from user.models import User
 
-class JWTAuthentication(TokenScheme):
-    target_class = 'user.auth.JWTAuthentication'
+def authenticate(request, field: str, password: str):
+    try:
+        data = {"username": field}
+        if len(field.split("@")) == 2:
+            data = {"email": field}
+        user = User.objects.get(**data)
+    except User.DoesNotExist:
+        return None
+    
+    if user.check_password(password):
+        return user
+    else:
+        return None
 
+class JWTScheme(TokenScheme):
+    target_class = 'user.auth.JWTAuthentication'
+    name = "JWTScheme"
+    
+    def get_security_definition(self, auto_schema):
+        return build_bearer_security_scheme_object(
+            header_name="Authorization",
+            token_prefix="Bearer",
+        )
+        
 class JWTAuthentication(BaseAuthentication):
-    def authenticate(self, request: HttpRequest):
+    def authenticate(self, request: Request):
         data = request.headers.get("Authorization")
         if data is None:
             request.user = AnonymousUser()
@@ -34,27 +54,6 @@ class JWTAuthentication(BaseAuthentication):
             return user, access
         except:
             raise AuthenticationFailed("Error authenticate", status.HTTP_401_UNAUTHORIZED)
-
-class UserManager(BaseBackend):
-    def authenticate(self, request, field: str, password: str):
-        try:
-            data = {"username": field}
-            if len(field.split("@")) == 2:
-                data = {"email": field}
-            user = User.objects.get(**data)
-        except User.DoesNotExist:
-            return None
-        
-        if user.check_password(password):
-            return user
-        else:
-            return None
-        
-    def get_user(self, user_id: int):
-        try:
-            return User.objects.get(id=user_id)
-        except User.DoesNotExist:
-            return None
 
 class Token:
     def create_tokens(self, id: int,  username: str, email: str) -> tuple[str, str]:

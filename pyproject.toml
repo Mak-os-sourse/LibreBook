@@ -13,7 +13,9 @@ dependencies = [
     "dotenv>=0.9.9",
     "drf-spectacular>=0.30.0",
     "markdown>=3.10.3",
+    "pillow>=12.3.0",
     "psycopg[binary]>=3.3.4",
     "pyjwt>=2.13.0",
+    "python-magic>=0.4.27",
 ]
 

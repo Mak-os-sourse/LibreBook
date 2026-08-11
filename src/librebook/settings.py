@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,6 +26,9 @@ SECRET_KEY = 'django-insecure-a#+@pso378uk3b(338l!9p%zj80(!l-itgsu&#wc#3jsfr3-1=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 ALLOWED_HOSTS = []
 
 AUTHENTICATION_BACKENDS = [
@@ -34,7 +38,7 @@ AUTHENTICATION_BACKENDS = [
 AUTH_USER_MODEL = 'user.User'
 
 REST_FRAMEWORK = {
-    'DEFAULT_SCHEMA_CLASS': 'user.auth.JWTAuthentication',
+    'DEFAULT_SCHEMA_CLASS': 'user.auth.JWTScheme',
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'user.auth.JWTAuthentication',
     ],
@@ -47,6 +51,7 @@ SPECTACULAR_SETTINGS = {
     'TITLE': 'LibreBook',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
+    'COMPONENT_SPLIT_REQUEST': True,
 }
 
 # Application definition
@@ -54,6 +59,8 @@ SPECTACULAR_SETTINGS = {
 INSTALLED_APPS = [
     'book',
     'user',
+    'comment',
+    'favorites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
