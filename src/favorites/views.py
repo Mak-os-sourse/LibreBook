@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 
 from favorites.serializers import FavoritesSerializers
+from user.security import IsOwnerOrReadOnly
 from favorites.models import Favorites
 from book.models import Book
 
@@ -14,7 +15,7 @@ class FavoritesMixin(
     mixins.DestroyModelMixin,
     viewsets.GenericViewSet,
 ):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
     
     queryset = Favorites.objects.all()
     serializer_class = FavoritesSerializers

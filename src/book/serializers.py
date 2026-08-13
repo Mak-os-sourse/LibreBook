@@ -4,8 +4,9 @@ from user.serializers import UserSerializer
 from book.models import Book
 
 class BookSerializers(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
+    user = UserSerializer(default=serializers.CurrentUserDefault(), read_only=True)
     photo = serializers.FileField(read_only=True)
+    count_favorites = serializers.IntegerField(read_only=True)
     
     class Meta:
         model = Book

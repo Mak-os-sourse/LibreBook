@@ -31,16 +31,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 ALLOWED_HOSTS = []
 
-AUTHENTICATION_BACKENDS = [
-    "user.auth.UserManager",
-]
 
 AUTH_USER_MODEL = 'user.User'
 
 REST_FRAMEWORK = {
-    'DEFAULT_SCHEMA_CLASS': 'user.auth.JWTScheme',
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'user.auth.JWTAuthentication',
+        'user.security.auth.JWTAuthentication',
     ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',

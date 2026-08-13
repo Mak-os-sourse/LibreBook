@@ -5,11 +5,10 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticate
 from rest_framework.decorators import api_view, permission_classes
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema
-from user.auth import authenticate
 
 from settings import settings
 from user.models import User
-from user.auth import token
+from user.security import token, authenticate, IsOwnerOrReadOnly
 from user.serializers import RegistUser, LoginUser, TokenResponse, UserSerializer
 
 @extend_schema(responses=TokenResponse)
@@ -17,7 +16,7 @@ from user.serializers import RegistUser, LoginUser, TokenResponse, UserSerialize
 @permission_classes([IsAuthenticated])
 def update_token(request: Request):
     access, refresh = token.create_tokens(id=request.user.id, username=request.user.username, email=request.user.email)
-    res = Response(TokenResponse(data={"access_token": access, "expires_in": settings.jwt_access_exp}).initial_data)
+    res = Response(TokenResponse({"access_token": access, "expires_in": settings.jwt_access_exp}).data)
     res.set_cookie("token", refresh, httponly=True)
     return res
 
@@ -25,8 +24,7 @@ def update_token(request: Request):
 @api_view(["POST"])
 def regist(request: Request):
     data = RegistUser(data=request.data)
-    if not data.is_valid():
-        return Response(data.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+    data.is_valid(raise_exception=True)
     
     user = authenticate(
         request,
@@ -41,23 +39,15 @@ def regist(request: Request):
     user.save()
     
     access, refresh = token.create_tokens(id=user.id, username=user.username, email=user.email)
-    res = Response(TokenResponse(data={"access_token": access, "expires_in": settings.jwt_access_exp}).initial_data)
+    res = Response(TokenResponse({"access_token": access, "expires_in": settings.jwt_access_exp}).data)
     res.set_cookie("token", refresh, httponly=True)
-    return res
-
-@extend_schema(responses=UserSerializer)
-@api_view(["GET"])
-@permission_classes([IsAuthenticated])
-def get_me(request: Request):
-    res = Response(UserSerializer(request.user, read_only=True).data)
     return res
 
 @extend_schema(request=LoginUser, responses=TokenResponse)
 @api_view(["POST"])
 def login(request: Request):
     data = LoginUser(data=request.data)
-    if not data.is_valid():
-        return Response(data=data.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+    data.is_valid(raise_exception=True)
     
     user = authenticate(
         request,
@@ -68,8 +58,15 @@ def login(request: Request):
         return Response(status=status.HTTP_401_UNAUTHORIZED)
         
     access, refresh = token.create_tokens(id=user.id, username=user.username, email=user.email)
-    res = Response(TokenResponse(data={"access_token": access, "expires_in": settings.jwt_access_exp}).initial_data)
+    res = Response(TokenResponse({"access_token": access, "expires_in": settings.jwt_access_exp}).data)
     res.set_cookie("token", refresh, httponly=True)
+    return res
+
+@extend_schema(responses=UserSerializer)
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_me(request: Request):
+    res = Response(UserSerializer(request.user, read_only=True).data)
     return res
 
 class UserMixin(
@@ -79,7 +76,7 @@ class UserMixin(
     mixins.DestroyModelMixin,
     viewsets.GenericViewSet,
 ):
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     
     queryset = User.objects.all()
     serializer_class = UserSerializer

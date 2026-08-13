@@ -6,7 +6,7 @@ class Book(models.Model):
     description: str = models.CharField(max_length=500)
     author: str = models.CharField(max_length=100)
     user: int = models.ForeignKey(User, on_delete=models.CASCADE)
-    pub_date: int = models.DateTimeField()
+    pub_date: int = models.DateTimeField(auto_now=True)
     create_at: int = models.DateTimeField(auto_now_add=True)
     photo = models.FileField(upload_to="books")
     count_favorites: int = models.IntegerField(default=0)

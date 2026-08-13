@@ -5,22 +5,22 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import viewsets, filters, status
-from rest_framework.decorators import api_view, parser_classes
+from rest_framework.decorators import api_view, parser_classes, permission_classes
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema
 
 from book.models import Book
 from book.serializers import BookSerializers, UploadFile
+from user.security import IsOwnerOrReadOnly
 
 @extend_schema(request=UploadFile)
 @api_view(["POST"])
 @parser_classes([MultiPartParser, FormParser])
+@permission_classes([IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly])
 def update_image(request: Request):
     data = UploadFile(data=request.data)
-    
-    if not data.is_valid():
-        return Response(data.errors, status.HTTP_422_UNPROCESSABLE_ENTITY)
+    data.is_valid(raise_exception=True)
 
     file: File = data.validated_data["file"]
     file_data = file.read()
@@ -38,7 +38,7 @@ def update_image(request: Request):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
 class BookMixin(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     
     queryset = Book.objects.all()
     serializer_class = BookSerializers

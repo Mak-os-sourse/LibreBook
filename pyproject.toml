@@ -12,6 +12,7 @@ dependencies = [
     "djangorestframework-stubs>=3.17.1",
     "dotenv>=0.9.9",
     "drf-spectacular>=0.30.0",
+    "faker>=40.36.0",
     "markdown>=3.10.3",
     "pillow>=12.3.0",
     "psycopg[binary]>=3.3.4",

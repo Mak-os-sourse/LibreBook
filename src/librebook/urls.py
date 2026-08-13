@@ -21,10 +21,13 @@ urlpatterns = [
     path("api/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
 
     path("api/", include(router.urls)),
+    
     path("api/book/update-image", book_views.update_image, name="update-book-image"),
+    
     path("api/user/login", user_views.login, name="login"),
     path("api/user/regist", user_views.regist, name="regist"),
     path("api/user/update-token", user_views.update_token, name="update-token"),
     path("api/user/get/me", user_views.get_me, name="me"),
+    
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]

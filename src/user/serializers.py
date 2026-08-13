@@ -8,14 +8,14 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {'is_superuser': {'read_only': True}, 'is_active': {'read_only': True}}
 
 class RegistUser(serializers.Serializer):
-    name: str = serializers.CharField(max_length=100)
+    name: str = serializers.CharField(min_length=4, max_length=100)
     email: str = serializers.EmailField()
-    username: str = serializers.CharField(max_length=100)
-    password: str = serializers.CharField(max_length=30)
+    username: str = serializers.CharField(min_length=4, max_length=100)
+    password: str = serializers.CharField(min_length=6, max_length=30)
 
 class LoginUser(serializers.Serializer):
-    field: str = serializers.CharField(max_length=100)
-    password: str = serializers.CharField(max_length=30)
+    field: str = serializers.CharField(min_length=4, max_length=100)
+    password: str = serializers.CharField(min_length=6, max_length=30)
     
 class TokenResponse(serializers.Serializer):
     access_token: str = serializers.CharField()
