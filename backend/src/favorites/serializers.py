@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.validators import UniqueTogetherValidator
 
 from favorites.models import Favorites
 from book.models import Book
@@ -11,3 +12,9 @@ class FavoritesSerializers(serializers.ModelSerializer):
     class Meta:
         model = Favorites
         fields = "__all__"
+        validators = [
+            UniqueTogetherValidator(
+                queryset=Favorites.objects.all(),
+                fields=['bool', 'user']
+            )
+        ]

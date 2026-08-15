@@ -2,8 +2,8 @@ from django.db import models
 from user.models import User
 
 class Book(models.Model):
-    name: str = models.CharField(max_length=50)
-    description: str = models.CharField(max_length=500)
+    name: str = models.CharField(max_length=4, max_length=50)
+    description: str = models.CharField(max_length=500, null=True)
     author: str = models.CharField(max_length=100)
     user: int = models.ForeignKey(User, on_delete=models.CASCADE)
     pub_date: int = models.DateTimeField(auto_now=True)
