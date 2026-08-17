@@ -6,6 +6,7 @@ __pycache__/
 settings.env
 
 src/media
+node_modules
 
 # C extensions
 *.so

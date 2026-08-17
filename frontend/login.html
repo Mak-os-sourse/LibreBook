@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script type="module" src="static/components/regist.js" async defer></script>
+        <script type="module" src="static/components/login.js" async defer></script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -17,7 +17,7 @@
             </div>
             
             <ul class="navbar-nav right" id="NavBarButtons">
-                <li><a class="btn btn-outline-ligh" href="/login">Log in</a></li>
+                <li><a class="btn btn-outline-ligh" href="/regist">Sing up</a></li>
             </ul>
             </div>
         </nav>
@@ -26,30 +26,22 @@
             <div class="card shadow-lg w-100" style="max-width: 480px;">
                 <div class="card-body">
                     <div class="text-center">
-                        <h1 class="card-title h3">Sign up</h1>
-                        <p class="card-text text-muted">Sign up below to access your account</p>
+                        <h1 class="card-title h3">Log in</h1>
+                        <p class="card-text text-muted">Log in below to access your account</p>
                     </div>
-                    <div class="mt-4" id="RegistInfo"></div>
+                    <div class="mt-4" id="LoginInfo"></div>
                     <div class="mt-4">
-                        <form id="RegistForm">
+                        <form id="LoginForm">
                             <div class="mb-4">
-                                <label for="username" class="form-label text-muted">Username</label>
-                                <input type="username" class="form-control" name="username" placeholder="Username" required>
-                            </div>
-                            <div class="mb-4">
-                                <label for="name" class="form-label text-muted">Name</label>
-                                <input type="name" class="form-control" name="name" placeholder="Name" required>
-                            </div>
-                            <div class="mb-4">
-                                <label for="email" class="form-label text-muted">Email Address</label>
-                                <input type="email" class="form-control" name="email" placeholder="Email Address" required>
+                                <label for="field" class="form-label text-muted">Email Address or username</label>
+                                <input type="field" class="form-control" name="field" placeholder="Email Address or Username" required>
                             </div>
                             <div class="mb-4">
                                 <label for="password" class="form-label text-muted">Password</label>
                                 <input type="password" class="form-control" name="password" placeholder="Password" required>
                             </div>
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-dark btn-lg">Sign up</button>
+                                <button type="submit" class="btn btn-dark btn-lg">Log in</button>
                             </div>
                         </form>
                     </div>
