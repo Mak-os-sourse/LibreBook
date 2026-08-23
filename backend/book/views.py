@@ -70,8 +70,8 @@ class BookMixin(viewsets.ModelViewSet):
     serializer_class = BookSerializers
     
     filter_backends = [filters.SearchFilter, DjangoFilterBackend, filters.OrderingFilter]
-    ordering_fields = ["name", "description", "author", "user_id", "pub_date", "create_at"]
-    filterset_fields = ["name", "description", "author", "user_id", "pub_date", "create_at"]
+    ordering_fields = ["name", "description", "author", "user_id", "pub_date", "create_at", "count_favorites"]
+    filterset_fields = ["name", "description", "author", "user_id", "pub_date", "create_at", "count_favorites"]
     search_fields = ["name", "description", "author"]
     
     def perform_create(self, serializer):

@@ -2,7 +2,7 @@ import BaseApi from "./baseApi.js";
 
 class FavoritesApi extends BaseApi {
     constructor() {
-        super("/favorites/")
+        super("/favorites/");
     }
 
     update = undefined;

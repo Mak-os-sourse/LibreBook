@@ -1,50 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LibreBook</title>
-  <script type="module" src="main.js"></script>
-  <script type="module" src="styles.js"></script>
-</head>
-<body>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <div>
-        <a class="navbar-brand" href="/">LibreBook</a>
-      </div>
-      
-      <form class="d-flex center" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button class="btn active" type="submit">Search</button>
-      </form>
-      <ul class="navbar-nav right" id="NavBarButtons"> 
-      </ul>
-    </div>
-  </nav>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>LibreBook</title>
+        <script type="module" src="main.js"></script>
+        <script type="module" src="styles.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <div>
+                    <a class="navbar-brand" href="/">LibreBook</a>
+                </div>
 
-  <div class="container pt-5">
-    <div class="d-flex justify-content-between">
-      <p class="mb-0">All Books</p>
-      <div class="dropdown">
-        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
-          All
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">All</a></li>
-          <li><a class="dropdown-item" href="#">Popular</a></li> 
-          <li><a class="dropdown-item" href="#">News </a></li>
-        </ul>
-      </div>
-    </div>
-    <hr class="mt-1">
+                <form class="d-flex center" role="search" id="SearchForm">
+                    <input
+                        class="form-control me-2"
+                        name="search"
+                        placeholder="Search"
+                    />
+                    <button class="btn active" type="submit">Search</button>
+                </form>
+                <ul class="navbar-nav right" id="NavBarButtons"></ul>
+            </div>
+        </nav>
 
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4" id="ListBooks">
-      
-    </div>
-    <div class="d-flex justify-content-center" id="GetAllData">
-      
-    </div>
-  </div>
-</body>
+        <div class="container pt-5">
+            <div class="d-flex justify-content-between">
+                <p class="mb-0">All Books</p>
+                <div class="dropdown">
+                    <button
+                        class="btn dropdown-toggle"
+                        type="button"
+                        id="DropdownMenuButton"
+                        data-bs-toggle="dropdown"
+                    >
+                        All
+                    </button>
+                    <ul class="dropdown-menu" id="DropMenu">
+                        <li><a class="dropdown-item" href="#">All</a></li>
+                        <li><a class="dropdown-item" href="#">Popular</a></li>
+                        <li><a class="dropdown-item" href="#">News</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-1" />
+
+            <div
+                class="row row-cols-1 row-cols-md-2 row-cols-lg-4"
+                id="ListBooks"
+            ></div>
+            <div class="d-flex justify-content-center" id="GetAllData"></div>
+        </div>
+    </body>
 </html>

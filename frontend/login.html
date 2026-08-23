@@ -1,46 +1,75 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
-        <meta charset="utf-8">
+        <meta charset="utf-8" />
         <title>LibreBook</title>
-        <meta name="LibreBook">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="LibreBook" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <script type="module" src="components/login.js"></script>
         <script type="module" src="styles.js"></script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-            <div>
-                <a class="navbar-brand" href="/">LibreBook</a>
-            </div>
-            
-            <ul class="navbar-nav right" id="NavBarButtons">
-                <li><a class="btn btn-outline-ligh" href="/regist">Sing up</a></li>
-            </ul>
+                <div>
+                    <a class="navbar-brand" href="/">LibreBook</a>
+                </div>
+
+                <ul class="navbar-nav right" id="NavBarButtons">
+                    <li>
+                        <a class="btn btn-outline-ligh" href="/regist"
+                            >Sing up</a
+                        >
+                    </li>
+                </ul>
             </div>
         </nav>
 
         <div class="d-flex align-items-center justify-content-center pt-5">
-            <div class="card shadow-lg w-100" style="max-width: 480px;">
+            <div class="card shadow-lg w-100" style="max-width: 480px">
                 <div class="card-body">
                     <div class="text-center">
                         <h1 class="card-title h3">Log in</h1>
-                        <p class="card-text text-muted">Log in below to access your account</p>
+                        <p class="card-text text-muted">
+                            Log in below to access your account
+                        </p>
                     </div>
                     <div class="mt-4" id="LoginInfo"></div>
                     <div class="mt-4">
                         <form id="LoginForm">
                             <div class="mb-4">
-                                <label for="field" class="form-label text-muted">Email Address or username</label>
-                                <input type="field" class="form-control" name="field" placeholder="Email Address or Username" required>
+                                <label for="field" class="form-label text-muted"
+                                    >Email Address or username</label
+                                >
+                                <input
+                                    type="field"
+                                    class="form-control"
+                                    name="field"
+                                    placeholder="Email Address or Username"
+                                    required
+                                />
                             </div>
                             <div class="mb-4">
-                                <label for="password" class="form-label text-muted">Password</label>
-                                <input type="password" class="form-control" name="password" placeholder="Password" required>
+                                <label
+                                    for="password"
+                                    class="form-label text-muted"
+                                    >Password</label
+                                >
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    name="password"
+                                    placeholder="Password"
+                                    required
+                                />
                             </div>
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-dark btn-lg">Log in</button>
+                                <button
+                                    type="submit"
+                                    class="btn btn-dark btn-lg"
+                                >
+                                    Log in
+                                </button>
                             </div>
                         </form>
                     </div>

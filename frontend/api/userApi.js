@@ -1,7 +1,7 @@
-import BaseApi from "./baseApi.js"
+import BaseApi from "./baseApi.js";
 import ApiClient from "./client.js";
 
-class userApi extends BaseApi {
+class UserApi extends BaseApi {
     constructor() {
         super("/user/");
     }
@@ -9,16 +9,16 @@ class userApi extends BaseApi {
     create = undefined;
 
     async getMe() {
-        return await ApiClient.get(`${this.url}me`)
+        return await ApiClient.get(`${this.url}get/me`);
     }
 
-    async regist(data = {name, username, email, password}) {
+    async regist(data = { name, username, email, password }) {
         return await ApiClient.post(`${this.url}regist`, data);
     }
 
-    async login(data = {field, password}) {
+    async login(data = { field, password }) {
         return await ApiClient.post(`${this.url}login`, data);
     }
 }
 
-export default new userApi();
+export default new UserApi();

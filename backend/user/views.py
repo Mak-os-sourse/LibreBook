@@ -2,7 +2,7 @@ import jwt
 from rest_framework.request import Request
 from rest_framework import status, filters, mixins, viewsets
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema
@@ -21,10 +21,9 @@ def update_token(request: Request):
         return Response(status=status.HTTP_401_UNAUTHORIZED)
     
     try:
-        refresh_token = refresh_token.lower()
-        data = token.decode(refresh_token.removeprefix("bearer "))
-    except jwt.PyJWTError:
-        return Response(status=status.HTTP_401_UNAUTHORIZED)
+        data = token.decode(refresh_token)
+    except jwt.PyJWTError as e:
+        return Response(data=str(e), status=status.HTTP_401_UNAUTHORIZED)
     access, refresh = token.create_tokens(id=data["id"], username=data["username"], email=data["email"])
     res = Response(TokenResponse({"access_token": access, "expires_in": settings.jwt_access_exp}).data)
     res.set_cookie("token", refresh, httponly=True)
