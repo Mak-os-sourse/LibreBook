@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>LibreBook</title>
+        <meta name="LibreBook" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script type="module" src="styles.js"></script>
+    </head>
+    <body>
+        {% include "template/navBar.html" %}
+        <div class="d-flex align-items-center justify-content-center pt-5">
+            <div class="card shadow-lg w-100" style="max-width: 480px">
+                <div class="card-body">
+                    <div class="text-center">
+                        <h1 class="card-title h3">New Book</h1>
+                        <p class="card-text text-muted">
+                            Fill in the details and attach files
+                        </p>
+                    </div>
+                    <div class="mt-4" id="FormInfo"></div>
+                    <div class="mt-4">
+                        <form id="BookForm">
+                            <div class="mb-4">
+                                <label for="name" class="form-label text-muted"
+                                    >Name</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="name"
+                                    name="name"
+                                    placeholder="Name"
+                                    required
+                                />
+                            </div>
+
+                            <div class="mb-4">
+                                <label
+                                    for="description"
+                                    class="form-label text-muted"
+                                    >Description</label
+                                >
+                                <textarea
+                                    class="form-control"
+                                    id="description"
+                                    name="description"
+                                    rows="4"
+                                    placeholder="Description"
+                                    required
+                                ></textarea>
+                            </div>
+
+                            <div class="mb-4">
+                                <label
+                                    for="author"
+                                    class="form-label text-muted"
+                                    >Author</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="author"
+                                    name="author"
+                                    placeholder="Author"
+                                    required
+                                />
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="photo" class="form-label text-muted"
+                                    >Photo</label
+                                >
+                                <input
+                                    type="file"
+                                    class="form-control"
+                                    id="photo"
+                                    name="photo"
+                                    accept="image/*"
+                                />
+                            </div>
+
+                            <div class="mb-4">
+                                <label
+                                    for="document"
+                                    class="form-label text-muted"
+                                    >Document (PDF)</label
+                                >
+                                <input
+                                    type="file"
+                                    class="form-control"
+                                    id="document"
+                                    name="document"
+                                    accept="application/pdf"
+                                />
+                            </div>
+
+                            <div class="d-grid">
+                                <button
+                                    type="submit"
+                                    class="btn btn-dark btn-lg"
+                                >
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

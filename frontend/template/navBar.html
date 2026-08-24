@@ -1,0 +1,21 @@
+<script type="module">
+    import renderAuthUser from "../components/navBar.js";
+    await renderAuthUser();
+</script>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <div>
+            <a class="navbar-brand" href="/">LibreBook</a>
+        </div>
+
+        <form class="d-flex center" role="search" id="SearchForm">
+            <input
+                class="form-control me-2"
+                name="search"
+                placeholder="Search"
+            />
+            <button class="btn active" type="submit">Search</button>
+        </form>
+        <ul class="navbar-nav right" id="NavBarButtons"></ul>
+    </div>
+</nav>

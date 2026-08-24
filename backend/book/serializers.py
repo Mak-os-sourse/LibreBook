@@ -7,6 +7,7 @@ class BookSerializers(serializers.ModelSerializer):
     name: str = serializers.CharField(min_length=4, max_length=50)
     user = UserSerializer(default=serializers.CurrentUserDefault(), read_only=True)
     photo = serializers.FileField(read_only=True)
+    document = serializers.FileField(read_only=True)
     count_favorites = serializers.IntegerField(read_only=True)
     favorite_id: int = serializers.IntegerField(read_only=True)
     

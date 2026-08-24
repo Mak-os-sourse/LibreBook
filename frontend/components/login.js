@@ -3,6 +3,9 @@ import userApi from "../api/userApi.js";
 const LoginForm = document.getElementById("LoginForm");
 LoginForm.addEventListener("submit", login);
 
+/**
+ * @param {Event} event
+ */
 async function login(event) {
     event.preventDefault();
     let data = new FormData(LoginForm);

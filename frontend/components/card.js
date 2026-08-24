@@ -1,6 +1,11 @@
 import FavoritesApi from "../api/favoritesApi.js";
 
-function append_card(parent, data) {
+/**
+ *
+ * @param {HTMLElement} parent
+ * @param {object} data
+ */
+function appendCard(parent, data) {
     parent.insertAdjacentHTML(
         "beforeend",
         `
@@ -25,7 +30,11 @@ function append_card(parent, data) {
     );
 }
 
-function add_likes_in_card(bookId) {
+/**
+ * @param {Number} bookId
+ * @returns {undefined}
+ */
+function addLikesInCard(bookId) {
     const like = document.getElementById(`Like-${bookId}`);
     like.onclick = async () => {
         const num = Number.parseInt(like.textContent);
@@ -50,13 +59,13 @@ function add_likes_in_card(bookId) {
  * @param {object[]} books
  * @returns {undefined}
  */
-async function render_cards(books) {
+async function renderCards(books) {
     let list = document.getElementById("ListBooks");
 
     for (let item of books) {
-        append_card(list, item);
-        add_likes_in_card(item.id);
+        appendCard(list, item);
+        addLikesInCard(item.id);
     }
 }
 
-export default render_cards;
+export default renderCards;

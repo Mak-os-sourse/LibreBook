@@ -26,6 +26,7 @@ urlpatterns = [
     path("", TemplateView.as_view(template_name="index.html")),
     path("regist", TemplateView.as_view(template_name="regist.html")),
     path("login", TemplateView.as_view(template_name="login.html")),
+    path("add-book", TemplateView.as_view(template_name="addBook.html")),
 
     path("api/", include(router.urls)),
     

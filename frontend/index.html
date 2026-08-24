@@ -8,27 +8,10 @@
         <script type="module" src="styles.js"></script>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <div>
-                    <a class="navbar-brand" href="/">LibreBook</a>
-                </div>
-
-                <form class="d-flex center" role="search" id="SearchForm">
-                    <input
-                        class="form-control me-2"
-                        name="search"
-                        placeholder="Search"
-                    />
-                    <button class="btn active" type="submit">Search</button>
-                </form>
-                <ul class="navbar-nav right" id="NavBarButtons"></ul>
-            </div>
-        </nav>
-
+        {% include "template/navBar.html" %}
         <div class="container pt-5">
             <div class="d-flex justify-content-between">
-                <p class="mb-0">All Books</p>
+                <p id="SearchQueryTitle" class="mb-0">All Books</p>
                 <div class="dropdown">
                     <button
                         class="btn dropdown-toggle"
