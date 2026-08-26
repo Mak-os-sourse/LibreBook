@@ -1,4 +1,4 @@
-import userApi from "../api/userApi.js";
+import UserApi from "../api/userApi.js";
 
 const LoginForm = document.getElementById("LoginForm");
 LoginForm.addEventListener("submit", login);
@@ -8,9 +8,9 @@ LoginForm.addEventListener("submit", login);
  */
 async function login(event) {
     event.preventDefault();
-    let data = new FormData(LoginForm);
+    const data = new FormData(LoginForm);
 
-    let res = await userApi.login(Object.fromEntries(data));
+    const res = await UserApi.login(Object.fromEntries(data));
 
     if (res.status !== 200) {
         document.getElementById("LoginInfo").innerHTML =

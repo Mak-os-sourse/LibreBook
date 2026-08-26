@@ -17,12 +17,13 @@ setEventDropMenu("DropMenu", "A");
             `Found for the query "${search}"`;
     }
 
-    document.getElementById("DropdownMenuButton").textContent = type;
+    document.getElementById("DropdownMenuButton").textContent =
+        document.getElementById(type).textContent;
     switch (type) {
-        case "Popular":
+        case "popular":
             ordering = "-count_favorites";
             break;
-        case "News":
+        case "news":
             ordering = "-create_at";
             break;
     }

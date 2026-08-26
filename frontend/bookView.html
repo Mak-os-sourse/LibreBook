@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>LibreBook</title>
+        <script type="module" src="main.js"></script>
+        <script type="module" src="styles.js"></script>
+    </head>
+    <body>
+        {% include "template/navBar.html" %}
+        <div class="container py-5">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body p-4">
+                    <div class="row g-4">
+                        <div class="col-md-5">
+                            <img
+                                src="https://placehold.co/300x400?text=Book+Cover"
+                                alt="Book cover"
+                                class="img-fluid rounded w-100"
+                            />
+                        </div>
+                        <div class="col-md-7">
+                            <h1 class="h3">Book Title Goes Here</h1>
+                            <p class="text-muted mb-1">by Author Name</p>
+                            <p class="text-muted small mb-3">
+                                Published by
+                                <span class="fw-semibold">Publisher Name</span>
+                            </p>
+                            <p class="mb-4">
+                                Short description of the book goes here. It
+                                gives readers an overview of what the book is
+                                about, its genre, and why it might be worth
+                                reading.
+                            </p>
+                            <a href="#" class="btn btn-dark"> Download PDF </a>
+                        </div>
+                    </div>
+
+                    <hr class="my-4" />
+
+                    <div>
+                        <h2 class="h5 mb-3">Comments</h2>
+
+                        <div class="bg-light border rounded-3 p-3 mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span class="fw-semibold">Jane Doe</span>
+                                <span class="text-muted small">2 days ago</span>
+                            </div>
+                            <p class="mb-0">
+                                Really enjoyed this book, great pacing!
+                            </p>
+                        </div>
+
+                        <div class="bg-light border rounded-3 p-3 mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span class="fw-semibold">John Smith</span>
+                                <span class="text-muted small">5 days ago</span>
+                            </div>
+                            <p class="mb-0">
+                                The ending felt a bit rushed for me.
+                            </p>
+                        </div>
+
+                        <form id="CommentForm" class="mt-4">
+                            <div class="mb-3">
+                                <label
+                                    for="comment"
+                                    class="form-label text-muted"
+                                >
+                                    Add a comment
+                                </label>
+                                <textarea
+                                    class="form-control"
+                                    id="comment"
+                                    name="comment"
+                                    rows="3"
+                                    placeholder="Write your comment..."
+                                    required
+                                ></textarea>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-dark">
+                                    Post Comment
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

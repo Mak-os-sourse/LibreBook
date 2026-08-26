@@ -6,12 +6,14 @@
         <meta name="LibreBook" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <script type="module" src="styles.js"></script>
+        <script type="module" src="components/addBook.js"></script>
     </head>
     <body>
         {% include "template/navBar.html" %}
         <div class="d-flex align-items-center justify-content-center pt-5">
             <div class="card shadow-lg w-100" style="max-width: 480px">
                 <div class="card-body">
+                    <div id="AddBookInfo"></div>
                     <div class="text-center">
                         <h1 class="card-title h3">New Book</h1>
                         <p class="card-text text-muted">

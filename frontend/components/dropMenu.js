@@ -8,7 +8,7 @@ function setEventDropMenu(dropMenuName, tagName) {
     dropMenu.addEventListener("click", (event) => {
         if (event.target.tagName == tagName) {
             const url = new URL(window.location.href);
-            url.searchParams.set("type", event.target.textContent);
+            url.searchParams.set("type", event.target.id);
             window.location.href = url.toString();
         }
     });
