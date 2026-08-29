@@ -7,25 +7,29 @@ let page = 1;
 setEventDropMenu("DropMenu", "A");
 
 (async function getCards() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const search = urlParams.get("search");
-    const type = urlParams.get("type");
+    const urlParameters = new URLSearchParams(location.search);
+    const search = urlParameters.get("search");
+    const type = urlParameters.get("type");
     let ordering;
 
-    if (search != null && search != "") {
-        document.getElementById("SearchQueryTitle").textContent =
+    if (search != undefined && search != "") {
+        document.querySelector("#SearchQueryTitle").textContent =
             `Found for the query "${search}"`;
     }
 
-    document.getElementById("DropdownMenuButton").textContent =
-        document.getElementById(type).textContent;
+    if (type != undefined) {
+        document.querySelector("#DropdownMenuButton").textContent =
+            document.getElementById(type).textContent;
+    }
     switch (type) {
-        case "popular":
+        case "popular": {
             ordering = "-count_favorites";
             break;
-        case "news":
+        }
+        case "news": {
             ordering = "-create_at";
             break;
+        }
     }
 
     const res = await BookApi.search({
@@ -37,14 +41,14 @@ setEventDropMenu("DropMenu", "A");
     if (res.status != 200) {
         return;
     }
-    renderCards(res.data.results);
+    renderCards("ListBooks", res.data.results);
 
-    if (res.data.next != null) {
-        let button = document.getElementById("GetAllData");
+    if (res.data.next != undefined) {
+        let button = document.querySelector("#GetAllData");
         button.innerHTML = `<button class="btn btn-dark mt-3" id="GetMore">Get more</button>`;
-        button.onclick = () => {
+        button.addEventListener('click', () => {
             page++;
             getCards();
-        };
+        });
     }
 })();

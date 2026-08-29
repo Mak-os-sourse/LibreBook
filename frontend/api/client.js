@@ -18,7 +18,7 @@ ApiClient.interceptors.response.use(
     async (config) => {
         if (
             config.status == 403 &&
-            config.config.headers.Authorization != null
+            config.config.headers.Authorization != undefined
         ) {
             let res = await ApiClient.post("user/update-token");
             if (res.status != 200) {

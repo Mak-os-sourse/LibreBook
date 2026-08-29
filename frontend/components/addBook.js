@@ -1,6 +1,6 @@
 import BookApi from "../api/bookApi";
 
-const BookForm = document.getElementById("BookForm");
+const BookForm = document.querySelector("#BookForm");
 BookForm.addEventListener("submit", addBook);
 
 /**
@@ -22,10 +22,10 @@ async function addBook(event) {
     const resImage = await BookApi.updateImage(book.data.id, data.get("photo"));
     if (resDocument.status != 200 || resImage.status != 200) {
         await BookApi.delete(book.data.id);
-        document.getElementById("AddBookInfo").innerHTML =
+        document.querySelector("#AddBookInfo").innerHTML =
             `<div class="alert alert-danger pt-2" role="alert">
         The photograph must be in png or jpeg format, and the document in pdf format.</div>`;
         return;
     }
-    window.location.href = "/";
+    location.assign("/");
 }

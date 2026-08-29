@@ -8,6 +8,7 @@ from comment.models import Comment
     
 class CommentMixin(
     mixins.CreateModelMixin,
+    mixins.ListModelMixin,
     mixins.RetrieveModelMixin,
     mixins.DestroyModelMixin,
     viewsets.GenericViewSet,

@@ -1,4 +1,4 @@
-from django.db.models import F
+from django.db.models import F, OuterRef, Subquery
 from django.db.utils import IntegrityError
 from rest_framework.exceptions import ValidationError
 from rest_framework import mixins, viewsets, filters

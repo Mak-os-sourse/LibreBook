@@ -1,14 +1,18 @@
 from rest_framework import serializers
-from rest_framework.validators import UniqueTogetherValidator
 
 from book.models import Book
 from favorites.models import Favorites
-from user.serializers import UserSerializer
+from book.serializers import BookSerializers
 
 class FavoritesSerializers(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
     book = serializers.PrimaryKeyRelatedField(queryset=Book.objects.all())
     
     class Meta:
         model = Favorites
         fields = "__all__"
+        
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation["book"] = BookSerializers(instance.book).data
+        return representation

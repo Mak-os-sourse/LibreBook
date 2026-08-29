@@ -27,7 +27,9 @@ urlpatterns = [
     path("regist", TemplateView.as_view(template_name="regist.html")),
     path("login", TemplateView.as_view(template_name="login.html")),
     path("add-book", TemplateView.as_view(template_name="addBook.html")),
-
+    path("book", TemplateView.as_view(template_name="bookView.html")),
+    path("profile", TemplateView.as_view(template_name="profile.html")),
+    
     path("api/", include(router.urls)),
     
     path("api/book/update-image", book_views.update_image, name="update-book-image"),

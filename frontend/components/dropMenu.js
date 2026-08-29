@@ -3,15 +3,15 @@
  * @param {string} tagName
  * @returns {undefined}
  */
-function setEventDropMenu(dropMenuName, tagName) {
+export default function setEventDropMenu(dropMenuName, tagName) {
     const dropMenu = document.getElementById(dropMenuName);
     dropMenu.addEventListener("click", (event) => {
-        if (event.target.tagName == tagName) {
-            const url = new URL(window.location.href);
-            url.searchParams.set("type", event.target.id);
-            window.location.href = url.toString();
+        if (event.target.tagName != tagName) {
+        	return;
         }
+
+        const url = new URL(location.href);
+        url.searchParams.set("type", event.target.id);
+        location.assign(url.toString());
     });
 }
-
-export default setEventDropMenu;

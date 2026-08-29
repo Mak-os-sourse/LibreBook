@@ -19,7 +19,9 @@ export default defineConfig({
     regist: resolve(ROOT_DIR, "regist.html"),
     login: resolve(ROOT_DIR, "login.html"),
     addBook: resolve(ROOT_DIR, "addBook.html"),
+    bookView: resolve(ROOT_DIR, "bookView.html"),
     navBar: resolve(ROOT_DIR, "template/navBar.html"),
+    profile: resolve(ROOT_DIR, "profile.html")
   },
 
   css: {

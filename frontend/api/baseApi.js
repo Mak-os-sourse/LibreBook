@@ -1,6 +1,6 @@
 import ApiClient from "./client.js";
 
-class BaseApi {
+export default class BaseApi {
     constructor(url) {
         this.url = url;
     }
@@ -25,5 +25,3 @@ class BaseApi {
         return await ApiClient.delete(`${this.url}${id}/`);
     }
 }
-
-export default BaseApi;

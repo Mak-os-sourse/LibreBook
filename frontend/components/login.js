@@ -1,6 +1,6 @@
 import UserApi from "../api/userApi.js";
 
-const LoginForm = document.getElementById("LoginForm");
+const LoginForm = document.querySelector("#LoginForm");
 LoginForm.addEventListener("submit", login);
 
 /**
@@ -13,12 +13,12 @@ async function login(event) {
     const res = await UserApi.login(Object.fromEntries(data));
 
     if (res.status !== 200) {
-        document.getElementById("LoginInfo").innerHTML =
+        document.querySelector("#LoginInfo").innerHTML =
             `<div class="alert alert-danger pt-2" role="alert">
         Incorrect password or login.</div>`;
         return;
     }
 
     localStorage.setItem("token", res.data.access_token);
-    window.location.href = "/";
+    location.assign("/");
 }
