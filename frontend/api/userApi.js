@@ -4,19 +4,18 @@ import ApiClient from "./client.js";
 class UserApi extends BaseApi {
     constructor() {
         super("/user/");
+        this.create = undefined;
     }
-
-    create = undefined;
 
     async getMe() {
         return await ApiClient.get(`${this.url}get/me`);
     }
 
-    async regist(data = { name, username, email, password }) {
+    async regist(data) {
         return await ApiClient.post(`${this.url}regist`, data);
     }
 
-    async login(data = { field, password }) {
+    async login(data) {
         return await ApiClient.post(`${this.url}login`, data);
     }
 }

@@ -73,7 +73,9 @@
             import {
                 renderComments,
                 renderBookView,
+                sendComment,
             } from "./components/bookView.js";
+            sendComment();
 
             let page = 1;
             const urlParams = new URLSearchParams(window.location.search);

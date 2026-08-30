@@ -10,7 +10,7 @@ function appendCard(parent, data) {
         `
         <div class="col mb-3">
             <div class="card h-100" style="max-width: 320px">
-            <img src="${data.photo == undefined ? "/assets/no-image.png" : data.photo}" class="card-img-top" alt="Book Image" height="320px">
+            <img src="${data.photo != null ? data.photo : "/assets/no-image.png"}" class="card-img-top" alt="Book Image" height="320px">
             <div class="card-body">
                 <h5><a class="card-title text-decoration-none" href="/book?id=${data.id}">${data.name}</a></h5>
                 <h6 class="card-text">${data.author}</h6>
@@ -34,22 +34,22 @@ function appendCard(parent, data) {
  * @returns {undefined}
  */
 function addLikesInCard(bookId) {
-    const like = document.getElementById(`Like-${bookId}`);
-    like.addEventListener('click', async () => {
+    const like = document.querySelector(`#Like-${bookId}`);
+    like.addEventListener("click", async () => {
         const number_ = Number.parseInt(like.textContent);
-        const id = document.getElementById(`Heart-${bookId}`).dataset.id;
+        const id = document.querySelector(`#Heart-${bookId}`).dataset.id;
 
         if (id !== "null") {
-            const res = await FavoritesApi.delete(id);
-            if (res.status == 204) {
+            const response = await FavoritesApi.delete(id);
+            if (response.status == 204) {
                 like.innerHTML = `<i class="bi bi-heart" id="Heart-${bookId}" data-id="null"></i> ${number_ - 1}`;
             }
             return;
         }
 
-        const res = await FavoritesApi.create({ book: bookId });
-        if (res.status == 201) {
-            like.innerHTML = `<i class="bi bi-heart-fill" id="Heart-${bookId}" data-id="${res.data.id}"></i> ${number_ + 1}`;
+        const response = await FavoritesApi.create({ book: bookId });
+        if (response.status == 201) {
+            like.innerHTML = `<i class="bi bi-heart-fill" id="Heart-${bookId}" data-id="${response.data.id}"></i> ${number_ + 1}`;
         }
     });
 }
@@ -60,7 +60,7 @@ function addLikesInCard(bookId) {
  * @returns {undefined}
  */
 export default async function renderCards(parentId, books) {
-    let list = document.getElementById(parentId);
+    let list = document.querySelector(`#${parentId}`);
 
     for (let item of books) {
         appendCard(list, item);

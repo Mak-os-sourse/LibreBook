@@ -1,6 +1,13 @@
 <script type="module">
-    import renderAuthUser from "../components/navBar.js";
-    await renderAuthUser();
+    import UserApi from "../api/userApi";
+    const response = await UserApi.getMe();
+    let element = document.querySelector("#NavBarButtons");
+
+    element.innerHTML =
+        response.status == 200
+            ? `<li><a class="btn rounded-circle" href="/add-book">+</a></li>
+        <li><a href="/profile"><image src="assets/user-image.jpg" class="d-inline-block align-text-top mx-auto" height="35"</a></li>`
+            : '<li><a class="btn btn-outline-ligh" href="/login">Log in</a></li>';
 </script>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">

@@ -4,14 +4,14 @@
  * @returns {undefined}
  */
 export default function setEventDropMenu(dropMenuName, tagName) {
-    const dropMenu = document.getElementById(dropMenuName);
+    const dropMenu = document.querySelector(`#${dropMenuName}`);
     dropMenu.addEventListener("click", (event) => {
         if (event.target.tagName != tagName) {
-        	return;
+            return;
         }
 
         const url = new URL(location.href);
         url.searchParams.set("type", event.target.id);
-        location.assign(url.toString());
+        location.assign(url.href);
     });
 }

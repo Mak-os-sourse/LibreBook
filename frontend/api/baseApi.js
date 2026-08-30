@@ -9,7 +9,7 @@ export default class BaseApi {
         return await ApiClient.post(this.url, data);
     }
 
-    async search(data = { page, search, ordering }) {
+    async search(data) {
         return await ApiClient.get(this.url, { params: data });
     }
 

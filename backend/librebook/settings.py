@@ -24,14 +24,14 @@ APPEND_SLASH = True
 SECRET_KEY = 'django-insecure-a#+@pso378uk3b(338l!9p%zj80(!l-itgsu&#wc#3jsfr3-1='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = 'media'
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0"]
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS     = [
+CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
     "http://127.0.0.1:8000",
 ]
@@ -114,7 +114,7 @@ DATABASES = {
         "NAME": "db",
         "USER": "root",
         "PASSWORD": "1234567",
-        "HOST": "127.0.0.1",
+        "HOST": "postgres",
         "PORT": "5432",
     }
 }

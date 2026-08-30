@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-top-level-side-effects */
 import axios from "axios";
 
 const ApiClient = axios.create({
@@ -20,14 +21,14 @@ ApiClient.interceptors.response.use(
             config.status == 403 &&
             config.config.headers.Authorization != undefined
         ) {
-            let res = await ApiClient.post("user/update-token");
-            if (res.status != 200) {
+            let response = await ApiClient.post("user/update-token");
+            if (response.status != 200) {
                 localStorage.removeItem("token");
                 config.config.headers.delete("Authorization");
                 return ApiClient(config.config);
             }
 
-            localStorage.setItem("token", res.data.access_token);
+            localStorage.setItem("token", response.data.access_token);
             return ApiClient(config.config);
         }
 

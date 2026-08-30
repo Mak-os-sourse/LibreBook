@@ -27,7 +27,7 @@ export default defineConfig([
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",
       "sonarjs/no-implicit-dependencies": "error",
-      "unicorn/prefer-module": "error",
+      "unicorn/filename-case": "off"
 		},
   }
 ]);

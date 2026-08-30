@@ -15,12 +15,15 @@ async function addBook(event) {
         description: data.get("description"),
         author: data.get("author"),
     });
-    const resDocument = await BookApi.updateDocument(
+    const responseDocument = await BookApi.updateDocument(
         book.data.id,
         data.get("document")
     );
-    const resImage = await BookApi.updateImage(book.data.id, data.get("photo"));
-    if (resDocument.status != 200 || resImage.status != 200) {
+    const responseImage = await BookApi.updateImage(
+        book.data.id,
+        data.get("photo")
+    );
+    if (responseDocument.status != 200 || responseImage.status != 200) {
         await BookApi.delete(book.data.id);
         document.querySelector("#AddBookInfo").innerHTML =
             `<div class="alert alert-danger pt-2" role="alert">

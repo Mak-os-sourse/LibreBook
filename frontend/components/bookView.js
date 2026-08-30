@@ -5,9 +5,8 @@ import CommentApi from "../api/commentApi.js";
  * @returns {undefined}
  */
 function renderBookView(book) {
-    document.querySelector("#BookImage").src = book.photo
-        ? book.photo
-        : "assets/no-image.png";
+    document.querySelector("#BookImage").src =
+        book.photo ?? "assets/no-image.png";
     document.querySelector("#BookTitle").textContent = book.name;
     document.querySelector("#AuthorName").textContent = book.author;
     document.querySelector("#PublishedBy").textContent = book.user.username;
@@ -48,18 +47,20 @@ function renderComments(comments) {
     }
 }
 
-const CommentForm = document.querySelector("#CommentForm");
-CommentForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const urlParameters = new URLSearchParams(location.search);
-    const res = await CommentApi.create({
-        book: urlParameters.get("id"),
-        content: document.querySelector("#comment").value,
+function sendComment() {
+    const CommentForm = document.querySelector("#CommentForm");
+    CommentForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const urlParameters = new URLSearchParams(location.search);
+        const response = await CommentApi.create({
+            book: urlParameters.get("id"),
+            content: document.querySelector("#comment").value,
+        });
+        if (response.status == 201) {
+            const element = document.querySelector("#ListComments");
+            renderComment(element, response.data, "afterbegin");
+        }
     });
-    if (res.status == 201) {
-        const element = document.querySelector("#ListComments");
-        renderComment(element, res.data, "afterbegin");
-    }
-});
+}
 
-export { renderBookView,renderComments };
+export { renderBookView, renderComments, sendComment };
