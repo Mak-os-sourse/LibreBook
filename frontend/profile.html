@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>LibreBook</title>
+        <script type="module" src="styles.js"></script>
+    </head>
+    <body>
+        {% include "template/navBar.html" %}
+        <div class="container py-5">
+            <div class="d-flex align-items-center mb-4">
+                <img src="assets/user-image.jpg" width="96" height="96" />
+                <div>
+                    <h1 id="Username" class="h4 mb-1">username</h1>
+                    <span id="Name">Name</span>
+                </div>
+            </div>
+
+            <ul class="nav nav-tabs mb-4" id="profileTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button
+                        class="nav-link active"
+                        id="UploadedTab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#UploadedPane"
+                    >
+                        My Books
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button
+                        class="nav-link"
+                        id="FavoritesTab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#FavoritesPane"
+                    >
+                        Favorites
+                    </button>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="UploadedPane">
+                    <div
+                        class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3"
+                        id="UploadedGrid"
+                    ></div>
+                    <div id="GetAllUploaded"></div>
+                </div>
+                <div class="tab-pane fade" id="FavoritesPane">
+                    <div
+                        class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3"
+                        id="FavoritesGrid"
+                    ></div>
+                    <div id="GetAllFavorites"></div>
+                </div>
+            </div>
+        </div>
+        <script type="module">
+            import UserApi from "./api/userApi";
+            import BookApi from "./api/bookApi.js";
+            import FavoritesApi from "./api/favoritesApi.js";
+            import { renderProfile } from "./components/profile.js";
+            import renderCards from "./components/card.js";
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get("id");
+            let pageUploaded = 1;
+            let pageFavorites = 1;
+            let user;
+
+            if (id != null) {
+                user = await UserApi.get(id);
+            } else {
+                user = await UserApi.getMe();
+            }
+            if (user.status != 200) {
+                window.location.href = "/";
+            }
+            renderProfile(user.data);
+
+            (async function getUploaded() {
+                const res = await BookApi.search({
+                    user_id: user.data.id,
+                    page: pageUploaded,
+                });
+                if (res.status != 200) {
+                    return;
+                }
+                renderCards("UploadedGrid", res.data.results);
+
+                if (res.data.next != null) {
+                    document.getElementById("GetAllUploaded").innerHTML =
+                        `<button type="button" id="loadMoreUploaded" class="btn btn-outline-dark btn-sm">
+                        Get more cards
+                    </button>`;
+                    document
+                        .getElementById("loadMoreUploaded")
+                        .addEventListener("click", (event) => {
+                            pageUploaded++;
+                            getUploaded();
+                        });
+                }
+            })();
+
+            (async function getFavorites() {
+                const res = await FavoritesApi.search({
+                    user: user.data.id,
+                    page: pageUploaded,
+                });
+                if (res.status != 200) {
+                    return;
+                }
+                renderCards(
+                    "FavoritesGrid",
+                    res.data.results.map((item) => {
+                        return { favorite_id: item.id, ...item.book };
+                    })
+                );
+
+                if (res.data.next != null) {
+                    document.getElementById("loadMoreFavorites").innerHTML =
+                        `<button type="button" id="loadMoreFavorites" class="btn btn-outline-dark btn-sm">
+                        Get more cards
+                    </button>`;
+                    document
+                        .getElementById("loadMoreFavorites")
+                        .addEventListener("click", (event) => {
+                            pageFavorites++;
+                            getFavorites();
+                        });
+                }
+            })();
+        </script>
+    </body>
+</html>

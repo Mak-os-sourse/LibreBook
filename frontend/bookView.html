@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>LibreBook</title>
+        <script type="module" src="styles.js"></script>
+    </head>
+    <body>
+        {% include "template/navBar.html" %}
+        <div class="container py-5">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body p-4">
+                    <div class="row g-4">
+                        <div class="col-md-5">
+                            <img
+                                id="BookImage"
+                                alt="Book cover"
+                                class="img-fluid rounded w-100"
+                            />
+                        </div>
+                        <div class="col-md-7">
+                            <h1 id="BookTitle" class="h3"></h1>
+                            <p id="AuthorName" class="text-muted mb-1"></p>
+                            <p class="text-muted small mb-3">
+                                Published by
+                                <a
+                                    id="PublishedBy"
+                                    class="link-dark fw-semibold"
+                                ></a>
+                            </p>
+                            <p id="Description" class="mb-4"></p>
+                            <a id="Download" class="btn btn-dark">Download</a>
+                        </div>
+                    </div>
+
+                    <hr class="my-4" />
+
+                    <div>
+                        <h2 class="h5 mb-3">Comments</h2>
+                        <div id="ListComments"></div>
+
+                        <form id="CommentForm" class="mt-4">
+                            <div class="mb-3">
+                                <label
+                                    for="comment"
+                                    class="form-label text-muted"
+                                >
+                                    Add a comment
+                                </label>
+                                <textarea
+                                    class="form-control"
+                                    id="comment"
+                                    name="comment"
+                                    rows="3"
+                                    placeholder="Write your comment..."
+                                    required
+                                ></textarea>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-dark">
+                                    Post Comment
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="module">
+            import BookApi from "./api/bookApi.js";
+            import CommentApi from "./api/commentApi.js";
+            import {
+                renderComments,
+                renderBookView,
+                sendComment,
+            } from "./components/bookView.js";
+            sendComment();
+
+            let page = 1;
+            const urlParams = new URLSearchParams(window.location.search);
+
+            const resBook = await BookApi.get(urlParams.get("id"));
+            if (resBook.status != 200) {
+                window.location.href = "/";
+            }
+            renderBookView(resBook.data);
+
+            (async function getComments() {
+                const res = await CommentApi.search({
+                    page: page,
+                    book: urlParams.get("id"),
+                });
+                if (res.status != 200) {
+                    window.location.href = "/";
+                }
+                renderComments(res.data.results);
+
+                if (res.data.next != null) {
+                    document.getElementById("GetAllComments").innerHTML =
+                        `<button type="button" id="loadMoreBtn" class="btn btn-outline-dark btn-sm">
+                        Show more comments
+                    </button>`;
+                    document
+                        .getElementById("loadMoreBtn")
+                        .addEventListener("click", (event) => {
+                            page++;
+                            getComments();
+                        });
+                }
+            })();
+        </script>
+    </body>
+</html>

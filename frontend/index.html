@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>LibreBook</title>
+        <script type="module" src="main.js"></script>
+        <script type="module" src="styles.js"></script>
+    </head>
+    <body>
+        {% include "template/navBar.html" %}
+        <div class="container pt-5">
+            <div class="d-flex justify-content-between">
+                <p id="SearchQueryTitle" class="mb-0">All Books</p>
+                <div class="dropdown">
+                    <button
+                        class="btn dropdown-toggle"
+                        type="button"
+                        id="DropdownMenuButton"
+                        data-bs-toggle="dropdown"
+                    >
+                        All
+                    </button>
+                    <ul class="dropdown-menu" id="DropMenu">
+                        <li><a id="all" class="dropdown-item">All</a></li>
+                        <li>
+                            <a id="popular" class="dropdown-item">Popular</a>
+                        </li>
+                        <li><a id="news" class="dropdown-item">News</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-1" />
+
+            <div
+                class="row row-cols-1 row-cols-md-2 row-cols-lg-4"
+                id="ListBooks"
+            ></div>
+            <div class="d-flex justify-content-center" id="GetAllData"></div>
+        </div>
+    </body>
+</html>
