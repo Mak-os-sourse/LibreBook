@@ -11,5 +11,10 @@ COPY . .
 COPY --from=Frontend /app/dist /app/dist
 RUN apk update && apk add libmagic file-dev tzdata
 RUN uv sync --no-dev
+RUN uv run backend/manage.py collectstatic --noinput
 
-CMD ["uv", "run", "backend/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["uv", "run", "gunicorn", "librebook.wsgi", "--bind", "0.0.0.0:8000"]
+
+FROM nginx:alpine AS Nginx
+COPY --from=Frontend /app/dist /dist
+COPY /nginx/default.conf /etc/nginx/conf.d/default.conf

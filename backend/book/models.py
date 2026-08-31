@@ -12,5 +12,3 @@ class Book(models.Model):
     document = models.FileField(upload_to="books", null=True)
     count_favorites: int = models.IntegerField(default=0)
     
-    def __str__(self):
-        return self.book_text

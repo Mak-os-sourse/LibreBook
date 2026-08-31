@@ -24,7 +24,7 @@ APPEND_SLASH = True
 SECRET_KEY = 'django-insecure-a#+@pso378uk3b(338l!9p%zj80(!l-itgsu&#wc#3jsfr3-1='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = 'media'
