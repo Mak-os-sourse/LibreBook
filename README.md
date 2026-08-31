@@ -10,6 +10,10 @@
     <img src="https://img.shields.io/github/stars/Mak-os-sourse/Librebook">
 </p>
 
+<p align="center">
+    <img width="1920" height="1047" alt="изображение" src="https://github.com/user-attachments/assets/33f9d099-9251-4bc2-b35d-a8ce80cf0142" />
+</p>
+
 ## Stack
 
 **Backend**
