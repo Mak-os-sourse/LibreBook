@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.conf import settings
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from rest_framework.routers import SimpleRouter
@@ -10,6 +10,7 @@ from user import views as user_views
 from book import views as book_views
 from comment import views as comment_views
 from favorites import views as favorites_views
+from django.views.static import serve
 
 router = SimpleRouter()
 router.register("user", user_views.UserMixin, basename="user")
@@ -41,6 +42,5 @@ urlpatterns = [
     path("api/user/get/me", user_views.get_me, name="me"),
     
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT})
 ]
-if settings.DEBUG:
-    urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
