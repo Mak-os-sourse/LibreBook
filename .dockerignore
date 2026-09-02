@@ -7,9 +7,12 @@ dist
 .prittierrc
 eslint.config.js
 jsconfig.json
+backend/staticfiles
 
-backend/media
+media
 node_modules
+add_fake_books.py
+settings.env.example
 
 # C extensions
 *.so

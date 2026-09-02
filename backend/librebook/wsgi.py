@@ -8,6 +8,7 @@ https://docs.djangoproject.com/en/6.0/howto/deployment/wsgi/
 """
 
 import os
+from whitenoise import WhiteNoise
 
 from django.core.wsgi import get_wsgi_application
 from whitenoise import WhiteNoise
@@ -16,4 +17,4 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'librebook.settings')
 
 application = get_wsgi_application()
 application = WhiteNoise(application)
-application.add_files("media", "media/")
+application.add_files("dist/assets", prefix="assets/")
